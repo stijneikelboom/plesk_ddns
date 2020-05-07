@@ -1,5 +1,5 @@
 # Plesk DDNS
-A simple PHP script that can be called from routers to maintain DDNS records within Plesk.
+Simple PHP script that can be called from routers to maintain dynamic DNS records within Plesk.
 
 ## Features
 ### Core features
@@ -15,7 +15,7 @@ A simple PHP script that can be called from routers to maintain DDNS records wit
 - Returns appropriate HTTP codes based on the result.
 
 ## Installation
-Firstly, install the requirements using Composer. The script uses  [plesk/api-php-lib](https://github.com/plesk/api-php-lib) to interact with the Plesk API.
+Firstly, install the requirements using Composer. The script uses [plesk/api-php-lib](https://github.com/plesk/api-php-lib) to interact with the Plesk API.
 
 ```bash
 composer install
@@ -23,7 +23,7 @@ composer install
 
 Secondly, configure the script. Copy the contents of `credentials.example.ini` to `credentials.ini` and update them as follows.
 - `ddns_key` should contain a self-defined key to restrict access to the script.
-- `ddns_hosts` should contain a comma-separated list of full subdomains that can be updated.
+- `ddns_hosts` should contain a comma-separated list of full subdomains to accept.
 - `plesk_host` should contain the FQDN of the Plesk server.
 - `plesk_key` should contain a secret key from Plesk, [generated using the CLI](https://support.plesk.com/hc/en-us/articles/115001284353-How-to-create-an-API-access-token-and-how-to-use-it-for-API-authentication).
 

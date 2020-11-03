@@ -8,7 +8,7 @@ error_reporting(E_ALL);
 require 'vendor/autoload.php';
 
 // Check method
-if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+if (!in_array($_SERVER['REQUEST_METHOD'], ['POST', 'GET'])) {
     http_response_code(405);
     echo 'ERROR: Wrong request method';
     die();
@@ -24,13 +24,13 @@ if(empty($credentials['ddns_key']) or empty($credentials['ddns_hosts'])
 }
 
 // Check and get parameters
-if(!empty($_POST['domain']) and !empty($_POST['subdomain']) and !empty($_POST['key'])){
+if(!empty($_REQUEST['domain']) and !empty($_REQUEST['subdomain']) and !empty($_REQUEST['key'])){
     $params = [
-        'key' => $_POST['key'],
-        'domain' => $_POST['domain'],
-        'subdomain' => $_POST['subdomain'],
-        'host' => sprintf('%s.%s', $_POST['subdomain'], $_POST['domain']),
-        'ip' => empty($_POST['ip']) ? $_SERVER['REMOTE_ADDR'] : $_POST['ip']
+        'key' => $_REQUEST['key'],
+        'domain' => $_REQUEST['domain'],
+        'subdomain' => $_REQUEST['subdomain'],
+        'host' => sprintf('%s.%s', $_REQUEST['subdomain'], $_REQUEST['domain']),
+        'ip' => empty($_REQUEST['ip']) ? $_SERVER['REMOTE_ADDR'] : $_REQUEST['ip']
     ];
 } else{
     http_response_code(400);

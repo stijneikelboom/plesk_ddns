@@ -91,7 +91,7 @@ try {
 } catch (PleskX\Api\Exception $e) {
     if($e->getCode() == 1007) {
         // Report success if record already existed
-        echo 'SUCCESS: Record already up to date';
+        echo 'OK: Record already up to date';
         die();
     } else {
         // Report any other error
@@ -101,4 +101,4 @@ try {
     }
 }
 
-echo 'SUCCESS: Record updated';
+echo 'OK: Record updated';

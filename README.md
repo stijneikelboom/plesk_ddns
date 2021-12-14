@@ -11,7 +11,7 @@ Simple PHP script that can be called from routers to maintain dynamic DNS record
 - Restricts access using a configurable key.
 - Only updates records for predefined subdomains.
 - Uses the [Plesk XML-RPC API](https://docs.plesk.com/en-US/obsidian/api-rpc/about-xml-api.28709/) for robustness.
-- Can only be called using a `POST` request.
+- Can be called using a `POST` or `GET` request.
 - Returns appropriate HTTP codes based on the result.
 
 ## Installation

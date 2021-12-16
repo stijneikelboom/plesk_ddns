@@ -1,3 +1,3 @@
-<Files "*.ini">  
+<FilesMatch "^.+\.(ini|log)$">
   Deny from all
-</Files>
+</FilesMatch>

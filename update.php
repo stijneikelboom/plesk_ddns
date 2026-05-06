@@ -12,7 +12,7 @@ date_default_timezone_set('Europe/Amsterdam');
 
 // Create logging function
 function update_log($log_message, $log_params=[]) {
-    $log_date = strftime('%F %T');
+    $log_date = date('Y-m-d H:i:s');
     $log_ip = $log_params['ip'] ?? $_SERVER['REMOTE_ADDR'];
     $log_host = $log_params['host'] ?? '-';
     $log_line = sprintf("[%s] %s, IP: %s, HOST: %s\n", $log_date, $log_message, $log_ip, $log_host);
@@ -29,8 +29,8 @@ if (!in_array($_SERVER['REQUEST_METHOD'], ['POST', 'GET'])) {
 
 // Load and check credentials
 $credentials = parse_ini_file('credentials.ini');
-if(empty($credentials['ddns_key']) || empty($credentials['ddns_hosts'])
-    || empty($credentials['plesk_host']) || (empty($credentials['plesk_key']) && (empty($credentials['plesk_login']) || empty($credentials['plesk_password'])))) {
+if(empty($credentials['ddns_key']) || empty($credentials['ddns_hosts']) || empty($credentials['plesk_host'])
+    || (empty($credentials['plesk_key']) && (empty($credentials['plesk_login']) || empty($credentials['plesk_password'])))) {
     http_response_code(500);
     update_log('ERROR: Not all credentials (ddns_key, ddns_hosts, plesk_host, plesk_key or plesk_login with plesk_password) set');
     die();
@@ -75,7 +75,6 @@ try {
         $plesk->setCredentials($credentials['plesk_login'], $credentials['plesk_password']);
     }
 
-    
     // Build site request
     $xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><packet></packet>', null, false);
     $site = $xml->addChild('site');

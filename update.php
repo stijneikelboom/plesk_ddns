@@ -29,10 +29,10 @@ if (!in_array($_SERVER['REQUEST_METHOD'], ['POST', 'GET'])) {
 
 // Load and check credentials
 $credentials = parse_ini_file('credentials.ini');
-if(empty($credentials['ddns_key']) or empty($credentials['ddns_hosts'])
-    or empty($credentials['plesk_host'] or empty($credentials['plesk_key']))){
+if(empty($credentials['ddns_key']) || empty($credentials['ddns_hosts'])
+    || empty($credentials['plesk_host']) || (empty($credentials['plesk_key']) && (empty($credentials['plesk_login']) || empty($credentials['plesk_password'])))) {
     http_response_code(500);
-    update_log('ERROR: Not all credentials (ddns_key, ddns_hosts, plesk_host, plesk_key) set');
+    update_log('ERROR: Not all credentials (ddns_key, ddns_hosts, plesk_host, plesk_key or plesk_login with plesk_password) set');
     die();
 }
 
@@ -69,8 +69,13 @@ if(!in_array($params['host'], $ddns_hosts_list)){
 try {
     // Connect to API
     $plesk = new \PleskX\Api\Client($credentials['plesk_host']);
-    $plesk->setSecretKey($credentials['plesk_key']);
+	if($credentials['plesk_key'] != null) {
+        $plesk->setSecretKey($credentials['plesk_key']);
+    } else {
+        $plesk->setCredentials($credentials['plesk_login'], $credentials['plesk_password']);
+    }
 
+    
     // Build site request
     $xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><packet></packet>', null, false);
     $site = $xml->addChild('site');

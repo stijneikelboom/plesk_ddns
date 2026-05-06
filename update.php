@@ -69,7 +69,7 @@ if(!in_array($params['host'], $ddns_hosts_list)){
 try {
     // Connect to API
     $plesk = new \PleskX\Api\Client($credentials['plesk_host']);
-	if($credentials['plesk_key'] != null) {
+	if(!empty($credentials['plesk_key'])) {
         $plesk->setSecretKey($credentials['plesk_key']);
     } else {
         $plesk->setCredentials($credentials['plesk_login'], $credentials['plesk_password']);

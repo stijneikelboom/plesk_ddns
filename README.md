@@ -25,7 +25,13 @@ Secondly, configure the script. Copy the contents of `credentials.example.ini` t
 - `ddns_key` should contain a self-defined key to restrict access to the script.
 - `ddns_hosts` should contain a comma-separated list of full subdomains to accept.
 - `plesk_host` should contain the FQDN of the Plesk server.
-- `plesk_key` should contain a secret key from Plesk, [generated using the CLI](https://support.plesk.com/hc/en-us/articles/115001284353-How-to-create-an-API-access-token-and-how-to-use-it-for-API-authentication).
+- `plesk_key` should contain a secret key from Plesk, [generated using the CLI](https://support.plesk.com/hc/en-us/articles/12377517843863-How-to-create-a-Plesk-XML-API-access-token-and-how-to-use-it-for-XML-API-passwordless-authentication).
+
+Alternatively, if a secret key cannot be generated, credentials can be used to authenticate to Plesk.
+> [!WARNING]
+> This involves storing a plain-text password. Please proceed with care. Prefer a secret key whenever possible.
+- `plesk_login` should contain the username of the Plesk server.
+- `plesk_password` should contain the password of the Plesk server.
 
 ```ini
 [ddns]
